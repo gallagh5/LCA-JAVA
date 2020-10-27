@@ -1,66 +1,94 @@
-// Recursive Java program to print lca of two nodes 
+	// Recursive Java program to print lca of two nodes 
+	   
+	// A binary tree node 
+	import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
+
+
+
+	
+	// Recursive Java program to print lca of two nodes 
+	   
+	// A binary tree node 
+	import java.util.ArrayList;
+	import java.util.Iterator;
+	import java.util.LinkedList;
+	import java.util.List; 
+
+	// make Binary tree node 
+	class Node { 
+		int data; 
+		Node left, right; 
+
+		Node(int nodeNumber) { 
+			data = nodeNumber; 
+			left = right = null; 
+		} 
+	} 
+
+	public class LCA {
+		Node root; 
+		private List<Integer> L1 = new ArrayList<>(); 
+		private List<Integer> L2 = new ArrayList<>(); 
+
+		// Find path from root node to given root of tree. 
+		int findLCA(int node1, int node2) { 
+			L1.clear(); 
+			L2.clear(); 
+			return findLCA(root, node1, node2); 
+		} 
+
+		private int findLCA(Node LCAroot, int node1, int node2) { 
+
+			if (!findPath(LCAroot, node1, L1) || !findPath(LCAroot, node2, L1)) { 
+				System.out.println((L1.size() > 0) ? "node1 is present" : "node1 is missing"); 
+				System.out.println((L2.size() > 0) ? "node2 is present" : "node2 is missing"); 
+				return -1; 
+			} 
+
+			int index; 
+			for (index = 0; index < L1.size() && index < L2.size(); index++) {  
+				if (!L1.get(index).equals(L2.get(index))) 
+					break; 
+			} 
+
+			return L1.get(index-1); 
+		} 
+
+		// Find path from root node to given root of tree
+		// Stores path in vector path[]
+		// Return true if path exists, otherwise return false 
+		private boolean findPath(Node root, int node, List<Integer> pathList) 
+		{ 
+			// if no path return false
+			if (root == null) { 
+				return false;  
+			} 
+
+			// Stores node
+			// Node deleted if not in path from root to n. 
+			pathList.add(root.data); 
+
+			if (root.data == node) { 
+				return true; 
+			} 
+
+			if (root.left != null && findPath(root.left, node, pathList)) { 
+				return true; 
+			} 
+
+			if (root.right != null && findPath(root.right, node, pathList)) { 
+				return true; 
+			} 
+
+			// If not present in subtree rooted with root, remove root from 
+			
+			pathList.remove(pathList.size()-1); 
+
+			return false; 
+		} 
+	}
    
-// A binary tree node 
-class Node  
-{ 
-    int data; 
-    Node left, right; 
-   
-    Node(int item)  
-    { 
-        data = item; 
-        left = right = null; 
-    } 
-} 
-   
-class BinaryTree  
-{ 
-    Node root; 
-       
-    /* Function to find LCA of n1 and n2. The function assumes that both 
-       n1 and n2 are present in BST */
-    Node lca(Node node, int n1, int n2)  
-    { 
-        if (node == null) 
-            return null; 
-   
-        // If both n1 and n2 are smaller than root, then LCA lies in left 
-        if (node.data > n1 && node.data > n2) 
-            return lca(node.left, n1, n2); 
-   
-        // If both n1 and n2 are greater than root, then LCA lies in right 
-        if (node.data < n1 && node.data < n2)  
-            return lca(node.right, n1, n2); 
-   
-        return node; 
-    } 
-  /*  program to test lca() */
-    public static void main(String args[])  
-    { 
-        // Let us construct the BST shown in the above figure 
-        BinaryTree tree = new BinaryTree(); 
-        tree.root = new Node(20); 
-        tree.root.left = new Node(8); 
-        tree.root.right = new Node(22); 
-        tree.root.left.left = new Node(4); 
-        tree.root.left.right = new Node(12); 
-        tree.root.left.right.left = new Node(10); 
-        tree.root.left.right.right = new Node(14); 
-   
-        int n1 = 10, n2 = 14; 
-        Node t = tree.lca(tree.root, n1, n2); 
-        System.out.println("LCA of " + n1 + " and " + n2 + " is " + t.data); 
-   
-        n1 = 14; 
-        n2 = 8; 
-        t = tree.lca(tree.root, n1, n2); 
-        System.out.println("LCA of " + n1 + " and " + n2 + " is " + t.data); 
-   
-        n1 = 10; 
-        n2 = 22; 
-        t = tree.lca(tree.root, n1, n2); 
-        System.out.println("LCA of " + n1 + " and " + n2 + " is " + t.data); 
-   
-    } 
-} 
-   /*https://github.com/gallagh5/LCA-PYTHON.git this the link to the second part of LCA 1 that I forgot to upload to blackboard .
