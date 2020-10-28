@@ -1,0 +1,32 @@
+# A  python program to find LCA of two nodes 
+# node1 and node2
+  
+# Create binary tree 
+class Node: 
+  
+    # Construtor to create a new node 
+    def __init__(node, data): 
+        node.data = data 
+        node.left = None
+        node.right = None
+  
+# Function to find LCA of node1 and node2. The function assumes 
+# that both node1 and node2 are present in tree
+def lca(root, node1, node2): 
+      
+    # If root has nothing return nothing
+    if root is None: 
+        return None
+  
+    # If both node1 and node2 are smaller than root, then LCA 
+     lies on the left node
+    if(root.data > n1 and root.data > n2): 
+        return lca(root.left, n1, n2) 
+  
+    # If both node1 and node2 are greater than root, then LCA 
+     lies on the right node 
+    if(root.data < n1 and root.data < n2): 
+        return lca(root.right, n1, n2) 
+  
+    return root 
+  

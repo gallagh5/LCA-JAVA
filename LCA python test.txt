@@ -1,0 +1,43 @@
+
+import unittest
+
+class Node:
+    def __init__(self, value):
+        super().__init__(value)
+
+
+class TestLCA(unittest.TestCase):
+#test lca
+    def test_BasicTree(self):
+        
+        root = Node(1)
+        root.left = Node(2)
+        root.right = Node(3)
+        root.left.left = Node(4)
+        root.left.right = Node(5)
+        root.right.left = Node(6)
+        root.right.right = Node(7)
+
+        # print tree
+
+        self.assertEqual(3, binaryLCA.findLCA(root, 6, 7), "3 should be the lCA of 6 and 7")
+
+    def test_EmptyTree(self):
+        #print("Test2: Test Empty Tree:")
+        root = None
+        self.assertEqual(-1, binaryLCA.findLCA(root, 6, 7), " The output should be -1 since the tree is empty")
+
+    def test_BothNodesNotPresent(self):
+        #print("Test3: testBothNodesNotPresent:")
+        root = Node(1)
+        self.assertEqual(-1, binaryLCA.findLCA(root, 6, 7), " The output should be -1 both nodes are missing")
+
+
+	 def test_OneNodeNotPresent(self):
+        #print("Test4: tests if only one node is not Present:")
+        root = Node(1)
+        root.left = Node(6)
+        self.assertEqual(-1, binaryLCA.findLCA(root, 6, 7), " The output should  be -1 as one of the nodes is missing")
+
+
+
