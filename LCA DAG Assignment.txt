@@ -1,0 +1,155 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+public class DAG LCA {
+
+    private int Vertex;
+    private int Edge;
+    private ArrayList<Integer>[] add;
+    private int[] intdegree;
+    public boolean[] isMark;
+    public boolean[] isStacked;
+    public boolean DAGChecked;
+
+    //constructor for a DAG
+    public DAG LCA(int Vertex) {
+    if (Vertex < 0)
+    throw new IllegalArgumentException(" the no. of the vertices shouldnt be a minus number");
+    this.Vertex = Vertex;
+    this.Edge = 0;
+    intdegree = new int[Vertex];
+    add = (ArrayList<Integer>[]) new ArrayList[V];
+    for (int vertex = 0; vertex < Vertex; vertex++) {
+    add[vertex] = new ArrayList<Integer>();
+
+}
+DAGChecked = true;
+isMark = new boolean[Vertex];
+isStacked = new boolean[Vertex];
+}
+
+//get vertex
+public int Vertex() {
+    return Vertex;
+}
+
+//get edge
+public int Edge() {
+    return Edge;
+}
+
+//add an edge to the DAG
+public void addEdge(int vertex, int x) {
+    validateVertex(vertex);
+    validateVertex(x);
+    add[v].add(x);
+    intdegree[x]++;
+    Edge++;
+}
+
+//  valididate  vertex is found, if not, use an exception
+private void validateVertex(int vertex) {
+    if (vertex < 0 || vertex >= Vertex)
+        throw new IllegalArgumentException("vertex " + vertex + " is not within range  of 0 and " + (Vertex - 1));
+
+}
+
+public Repeat<Int> add(int vertex) {
+    validateVertex(vertex);
+    return add[vertex];
+}
+
+//check to see if Dag is acyclic
+public void isAcylicGraph() {
+    for (int i = 0; i < Vertex() && DAGChecked; i++) {
+        isStacked = new boolean[Vertex];
+        isMark = new boolean[Vertex];
+        acyclic(i);
+    }
+}
+
+private void IsAcyclic(int vertex) {
+    isStacked[vertex] = true;
+    isMark[vertex] = true;
+
+    for (int x : add(vertex)) {
+        if (!isMark[x]) {
+            IsAcyclic(x);
+        } else if (isStacked[x]) {
+            DAGChecked = false;
+            return;
+        }
+    }
+    isStacked[vertex] = false;
+}
+
+public LCA_DAG removeEdge() {
+    LCA_DAG removeEdge = new LCA_DAG(Vertex);
+    for (int vertex = 0; vertex < Vertex; vertex++) {
+
+        for (int x : add(vertex)) {
+            removeEdge.addEdge(x, vertex);
+        }
+    }
+    return removeEdge;
+}
+
+//To find LCA OF DAG
+public int LCA(int vertex, int x) {
+
+    if (!DAGChecked|| Edge == 0) {
+        return -1;
+    }
+    boolean hasLCA = false;
+    validateVertex(vertex);
+    validateVertex(x);
+
+    LCA_DAG removed = this.removeEdge();
+    ArrayList<Int> LCA = new ArrayList<Int>();
+
+    ArrayList<Int> H1 = remove.BST(vertex);
+    ArrayList<Int> H2 = remove.BST(x);
+
+    for (int i = 0; i < H1.size(); i++) {
+        for (int f = 0; f < H2.size(); f++) {
+            if (H1.get(i) == H2.get(t)) {
+                LCA.add(H1.get(i));
+                hasLCA = true;
+            }
+        }
+    }
+
+    if (hasLCA) {
+        return LCA.get(0);
+    } else {
+        return -1;
+    }
+}
+
+private ArrayList<Integer> BST(int y) {
+    boolean isFound[] = new boolean[Vertex];
+    LinkedList<Int> list = new LinkedList<Int>();
+    ArrayList<Int> answer = new ArrayList<Int>();
+
+    isFound[y] = true;
+    list.add(y);
+
+    while (list.size() != 0) {
+        n = list.poll();
+        result.add(y);
+        Repeat<Int> i = add[y].ShowRepeat();
+        while (i.hasNext()) {
+            int z = i.next();
+            if (!isFound[z]) {
+                isFound[z] = true;
+                list.add(z);
+            }
+        }
+    }
+
+    return answer;
+}
+
+}
+
